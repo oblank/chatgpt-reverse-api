@@ -23,7 +23,7 @@ const api = new ChatGPTUnofficialProxyAPI({
 })
 router.post('/', async (ctx, next) => {
   const params = ctx.request.body || {}
-  console.log(`${new Date()}\t::ASK::\t ${params.promt}`)
+  console.log(`${new Date()}\t::ASK::\t ${params.prompt}`)
 
   let DEFAULT_RES = {
     "role": "assistant",
@@ -32,7 +32,7 @@ router.post('/', async (ctx, next) => {
     "conversationId": params.conversationId,
     "text": "hehe~~"
   }
-  if(!params || (params.promt == null)) {
+  if(!params || (params.prompt == null)) {
     ctx.body = DEFAULT_RES
   }
 
@@ -45,9 +45,9 @@ router.post('/', async (ctx, next) => {
       if (params.parentMessageId) {
         opts.parentMessageId = params.parentMessageId
       }
-      res = await api.sendMessage(params.promt, opts)
+      res = await api.sendMessage(params.prompt, opts)
     } else {
-      res = await api.sendMessage(params.promt)
+      res = await api.sendMessage(params.prompt)
     }
   } 
   catch (e) {
