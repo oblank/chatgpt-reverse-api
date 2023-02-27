@@ -34,7 +34,6 @@ router.post('/', async (ctx, next) => {
     "text": "hehe~~"
   }
   if(!params || (params.promt == null)) {
-    
     ctx.body = DEFAULT_RES
   }
 
@@ -47,7 +46,7 @@ router.post('/', async (ctx, next) => {
       if (params.parentMessageId) {
         opts.parentMessageId = params.parentMessageId
       }
-      res = await api.sendMessage('Hello World!', opts)
+      res = await api.sendMessage(params.promt, opts)
     } else {
       res = await api.sendMessage(params.promt)
     }
