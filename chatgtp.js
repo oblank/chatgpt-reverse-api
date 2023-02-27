@@ -8,7 +8,6 @@ import fetch from 'unfetch'
 dotenv.config({
   allowEmptyValues: true
 });
-// console.log(process.env.OPENAI_ACCESS_TOKEN)
 
 const app = new koa({ proxy: true });
 const router = new Router()
