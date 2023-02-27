@@ -3,7 +3,7 @@ import dotenv from 'dotenv-safe'
 import koa from 'koa'
 import Router from '@koa/router';
 import { koaBody } from 'koa-body'
-import fetch from 'unfetch'
+import fetch from 'node-fetch'
 
 dotenv.config({
   allowEmptyValues: true
@@ -19,7 +19,8 @@ app
 const api = new ChatGPTUnofficialProxyAPI({
   accessToken: process.env.OPENAI_ACCESS_TOKEN,
   // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation'
-  apiReverseProxyUrl: "https://gpt.pawan.krd/backend-api/conversation"
+  apiReverseProxyUrl: "https://gpt.pawan.krd/backend-api/conversation",
+  fetch: fetch
 })
 router.post('/', async (ctx, next) => {
   const params = ctx.request.body || {}
@@ -62,4 +63,4 @@ router.post('/', async (ctx, next) => {
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
-app.listen(3000);
+app.listen(50005);
