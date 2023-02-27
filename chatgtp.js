@@ -24,6 +24,7 @@ const api = new ChatGPTUnofficialProxyAPI({
 })
 router.post('/', async (ctx, next) => {
   const params = ctx.request.body || {}
+  console.log(`${new Date()}\t${JSON.stringify(params)}`)
   console.log(`${new Date()}\t::ASK::\t ${params.prompt}`)
 
   let DEFAULT_RES = {
@@ -35,6 +36,7 @@ router.post('/', async (ctx, next) => {
   }
   if(!params || (params.prompt == null)) {
     ctx.body = DEFAULT_RES
+    return
   }
 
   let res = null
