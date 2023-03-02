@@ -1,4 +1,4 @@
-import { ChatGPTUnofficialProxyAPI } from 'chatgpt'
+import { ChatGPTUnofficialProxyAPI, ChatGPTAPI } from 'chatgpt'
 import dotenv from 'dotenv-safe'
 import koa from 'koa'
 import Router from '@koa/router';
@@ -16,12 +16,20 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
   
-const api = new ChatGPTUnofficialProxyAPI({
-  accessToken: process.env.OPENAI_ACCESS_TOKEN,
-  // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation'
-  apiReverseProxyUrl: "https://gpt.pawan.krd/backend-api/conversation",
+// const api = new ChatGPTUnofficialProxyAPI({
+//   accessToken: process.env.OPENAI_ACCESS_TOKEN,
+//   // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation'
+//   apiReverseProxyUrl: "https://gpt.pawan.krd/backend-api/conversation",
+//   fetch: fetch
+// })
+const api = new ChatGPTAPI({
+  apiKey: process.env.OPENAI_API_KEY,
+  completionParams: {
+    model: "gpt-3.5-turbo"
+  },
   fetch: fetch
 })
+
 router.post('/', async (ctx, next) => {
   const params = ctx.request.body || {}
   console.log(`${new Date()}\t${JSON.stringify(params)}`)
